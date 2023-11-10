@@ -20,9 +20,17 @@ public class TypingController implements KeyListener {
     private List<String> records;
     private ArrayList<JPanel> panels;
     private Random random;
+    private JPanel currentPanel;
+    private JLabel currentLabel;
+    private int currentPanelIndex;
+    private JPanel container;
+    private int score;
 
     public TypingController(Typing typing) {
         this.typing = typing;
+        this.score = 0;
+        container = typing.getJPanel2();
+        this.currentPanelIndex = 0;
         this.records = new ArrayList<>();
         this.random = new Random();
         this.typing.addKeyListener(this);
@@ -30,6 +38,7 @@ public class TypingController implements KeyListener {
         this.readCSV("src\\Assets\\dataset.csv");
         this.threadWord = new ThreadWord(typing, this);
         this.threadWord.start();
+
     }
 
     public void readCSV(String csvFile) {
@@ -47,7 +56,7 @@ public class TypingController implements KeyListener {
 
     public void getWord() {
         ArrayList<JLabel> labels = new ArrayList();
-        for (int i = 0; i < 240; i++) {
+        for (int i = 0; i < 200; i++) {
             JLabel label = new JLabel();
             label.setFont(new java.awt.Font("Segoe UI", 0, 28));
             label.setText(records.get(random.nextInt(records.size())));
@@ -58,8 +67,9 @@ public class TypingController implements KeyListener {
             JPanel panel = new JPanel();
             panel.setBackground(new java.awt.Color(255, 255, 255));
             panel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 0));
-            for (int j = 0; j < 6; j++) {
-                panel.add(labels.get(i * 6 + j));
+            for (int j = 0; j < 5; j++) {
+                panel.add(labels.get(0));
+                labels.remove(0);
             }
             panels.add(panel);
         }
@@ -88,21 +98,37 @@ public class TypingController implements KeyListener {
     }
 
     public void checkWord(String text) {
-        if (text != null && !text.isEmpty() && this.threadCountdown == null) {
+        if (text != null && !text.isEmpty() && (this.threadCountdown == null || !this.threadCountdown.isAlive())) {
             this.threadCountdown = new ThreadCountdown(59, typing, this);
             this.threadCountdown.start();
+        }
+        currentPanel = (JPanel) container.getComponent(0);
+        currentLabel = (JLabel) currentPanel.getComponent(currentPanelIndex);
+        int componentCount = currentPanel.getComponentCount();
+        if (text.equals(currentLabel.getText())) {
+            currentLabel.setForeground(new java.awt.Color(34, 139, 34));
+            currentPanelIndex++;
+            if (currentPanelIndex == componentCount) {
+                container.remove(0);
+                container.add(panels.get(0));
+                panels.remove(0);
+                currentPanelIndex = 0;
+            }
+            typing.setJTextField1("");
+        } else {
+            currentLabel.setForeground(new java.awt.Color(255, 0, 0));
         }
 
     }
 
     public void interrupt() {
+        this.typing.cleanPanelText();
+        this.getWord();
         try {
             this.threadCountdown.interrupt();
+            this.threadWord.interrupt();
         } catch (Exception e) {
         }
-        this.typing.requestFocus();
-        this.typing.cleanPanelText();
         typing.setJTextField1("");
-        this.getWord();
     }
 }

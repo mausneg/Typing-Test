@@ -16,8 +16,11 @@ public class ThreadCountdown extends Thread {
 
     @Override
     public void run() {
-        while (time > 0 && isRunning) {
-            typing.setJLabel1("00:" + String.valueOf(time));
+        while (time >= 0 && isRunning) {
+            if (time < 10) {
+                typing.setJLabel1("00:0" + String.valueOf(time));
+            } else
+                typing.setJLabel1("00:" + String.valueOf(time));
             typingController.checkWord(typing.getJTextField1().getText());
             try {
                 ThreadCountdown.sleep(1000);
@@ -27,7 +30,6 @@ public class ThreadCountdown extends Thread {
             time--;
         }
     }
-
 
     public void interrupt() {
         isRunning = false;

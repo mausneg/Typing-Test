@@ -13,8 +13,19 @@ public class ThreadWord extends Thread {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+        }
         while (true) {
             typingController.checkWord(typing.getJTextField1().getText());
+        }
+    }
+
+    public void interrupt() {
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
         }
     }
 }

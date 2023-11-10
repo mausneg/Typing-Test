@@ -56,6 +56,9 @@ public class Typing extends javax.swing.JFrame {
         public void setJTextField1(String text) {
                 this.jTextField1.setText(text);
         }
+        public JPanel getJPanel2(){
+                return this.jPanel2;
+        }
         /**
          * This method is called from within the constructor to initialize the form.
          * WARNING: Do NOT modify this code. The content of this method is always
