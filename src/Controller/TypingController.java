@@ -16,7 +16,9 @@ import javax.swing.JPanel;
 public class TypingController implements KeyListener {
     private Typing typing;
     private ThreadCountdown threadCountdown;
+    private ThreadWord threadWord;
     private List<String> records;
+    private ArrayList<JPanel> panels;
     private Random random;
 
     public TypingController(Typing typing) {
@@ -26,6 +28,8 @@ public class TypingController implements KeyListener {
         this.typing.addKeyListener(this);
         this.typing.setFocusable(true);
         this.readCSV("src\\Assets\\dataset.csv");
+        this.threadWord = new ThreadWord(typing, this);
+        this.threadWord.start();
     }
 
     public void readCSV(String csvFile) {
@@ -49,7 +53,7 @@ public class TypingController implements KeyListener {
             label.setText(records.get(random.nextInt(records.size())));
             labels.add(label);
         }
-        ArrayList<JPanel> panels = new ArrayList();
+        panels = new ArrayList();
         for (int i = 0; i < 40; i++) {
             JPanel panel = new JPanel();
             panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -68,11 +72,9 @@ public class TypingController implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (this.threadCountdown == null || !this.threadCountdown.isAlive()) {
-            this.threadCountdown = new ThreadCountdown(59, typing);
-            this.threadCountdown.start();
-        }
-        System.out.print(e.getKeyChar());
+        // if (this.threadCountdown == null || !this.threadCountdown.isAlive()) {
+        // this.threadCountdown = new ThreadController(1,59, typing, this);
+        // }
     }
 
     @Override
@@ -85,8 +87,22 @@ public class TypingController implements KeyListener {
 
     }
 
+    public void checkWord(String text) {
+        if (text != null && !text.isEmpty() && this.threadCountdown == null) {
+            this.threadCountdown = new ThreadCountdown(59, typing, this);
+            this.threadCountdown.start();
+        }
+
+    }
+
     public void interrupt() {
-        this.threadCountdown.interrupt();
+        try {
+            this.threadCountdown.interrupt();
+        } catch (Exception e) {
+        }
         this.typing.requestFocus();
+        this.typing.cleanPanelText();
+        typing.setJTextField1("");
+        this.getWord();
     }
 }
