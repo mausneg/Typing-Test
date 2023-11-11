@@ -152,7 +152,13 @@ public class Register extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Masukan data dengan benar!", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        registerController.register(username, password);
+        if (registerController.register(username, password)) {
+            JOptionPane.showMessageDialog(this, "Username sudah terdaftar!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Register berhasil!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        new Login().setVisible(true);
+        this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

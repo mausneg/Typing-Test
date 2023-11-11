@@ -20,8 +20,15 @@ public class DatabaseManager {
         }
     }
 
-    public void register(String username, String password) {
+    public boolean register(String username, String password) {
         try {
+            String checkQuery = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement checkStatement = connection.prepareStatement(checkQuery);
+            checkStatement.setString(1, username);
+            ResultSet resultSet = checkStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
@@ -30,5 +37,6 @@ public class DatabaseManager {
         } catch (Exception e) {
             System.out.println("Error: " + e);
         }
+        return false;
     }
 }
