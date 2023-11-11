@@ -26,12 +26,15 @@ public class ThreadCountdown extends Thread {
             }
             time--;
         }
-        typingController.end();
+        if (isRunning)
+            typingController.end();
     }
+
     public void interrupt() {
         isRunning = false;
         typing.setJLabel1("01:00");
     }
+
     public boolean isRunning() {
         return isRunning;
     }

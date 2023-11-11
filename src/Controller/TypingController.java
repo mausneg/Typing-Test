@@ -1,9 +1,6 @@
 package Controller;
 
 import Views.Typing;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,7 +10,7 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class TypingController implements KeyListener {
+public class TypingController {
     private Typing typing;
     private ThreadCountdown threadCountdown;
     private ThreadWord threadWord;
@@ -33,7 +30,6 @@ public class TypingController implements KeyListener {
         this.currentPanelIndex = 0;
         this.records = new ArrayList<>();
         this.random = new Random();
-        this.typing.addKeyListener(this);
         this.typing.setFocusable(true);
         this.readCSV("src\\Assets\\dataset.csv");
         this.threadWord = new ThreadWord(typing, this);
@@ -55,7 +51,7 @@ public class TypingController implements KeyListener {
     }
 
     public void getWord() {
-        ArrayList<JLabel> labels = new ArrayList();
+        ArrayList<JLabel> labels = new ArrayList<>();
         for (int i = 0; i < 200; i++) {
             JLabel label = new JLabel();
             label.setFont(new java.awt.Font("Segoe UI", 0, 28));
@@ -63,7 +59,7 @@ public class TypingController implements KeyListener {
             label.setText(records.get(random.nextInt(records.size())));
             labels.add(label);
         }
-        panels = new ArrayList();
+        panels = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             JPanel panel = new JPanel();
             panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -78,21 +74,6 @@ public class TypingController implements KeyListener {
             typing.addPanelText(panels.get(i));
             panels.remove(i);
         }
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
 
     }
 
@@ -123,7 +104,6 @@ public class TypingController implements KeyListener {
 
     public void restart() {
         this.currentPanelIndex = 0;
-        this.score = 0;
         try {
             this.threadCountdown.interrupt();
             this.threadWord.interrupt();
