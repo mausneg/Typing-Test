@@ -11,7 +11,7 @@ public class RegisterController {
 
     public RegisterController(Register register) {
         this.register = register;
-        this.dbManager = new DatabaseManager(this);
+        this.dbManager = new DatabaseManager();
         
     }
     public boolean register(String username, String password) {
