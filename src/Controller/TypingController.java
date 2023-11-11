@@ -59,6 +59,7 @@ public class TypingController implements KeyListener {
         for (int i = 0; i < 200; i++) {
             JLabel label = new JLabel();
             label.setFont(new java.awt.Font("Segoe UI", 0, 28));
+            label.setForeground(new java.awt.Color(71, 85, 105));
             label.setText(records.get(random.nextInt(records.size())));
             labels.add(label);
         }
@@ -82,9 +83,7 @@ public class TypingController implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // if (this.threadCountdown == null || !this.threadCountdown.isAlive()) {
-        // this.threadCountdown = new ThreadController(1,59, typing, this);
-        // }
+
     }
 
     @Override
@@ -102,12 +101,14 @@ public class TypingController implements KeyListener {
             this.threadCountdown = new ThreadCountdown(59, typing, this);
             this.threadCountdown.start();
         }
+
         currentPanel = (JPanel) container.getComponent(0);
         currentLabel = (JLabel) currentPanel.getComponent(currentPanelIndex);
         int componentCount = currentPanel.getComponentCount();
         if (text.equals(currentLabel.getText())) {
             currentLabel.setForeground(new java.awt.Color(34, 139, 34));
             currentPanelIndex++;
+            score++;
             if (currentPanelIndex == componentCount) {
                 container.remove(0);
                 container.add(panels.get(0));
@@ -118,17 +119,33 @@ public class TypingController implements KeyListener {
         } else {
             currentLabel.setForeground(new java.awt.Color(255, 0, 0));
         }
-
     }
 
-    public void interrupt() {
-        this.typing.cleanPanelText();
-        this.getWord();
+    public void restart() {
+        this.currentPanelIndex = 0;
+        this.score = 0;
         try {
             this.threadCountdown.interrupt();
             this.threadWord.interrupt();
         } catch (Exception e) {
         }
+        panels.clear();
+        this.typing.cleanPanelText();
+        this.getWord();
         typing.setJTextField1("");
+        this.threadWord = new ThreadWord(typing, this);
+        this.threadWord.start();
+    }
+
+    public void end() {
+        try {
+            this.threadCountdown.interrupt();
+            this.threadWord.interrupt();
+        } catch (Exception e) {
+        }
+        this.typing.cleanPanelText();
+        typing.setJTextField1("");
+        typing.setJLabel1("00:00");
+        typing.setJLabel2(String.valueOf(score));
     }
 }

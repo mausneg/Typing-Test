@@ -5,6 +5,7 @@ import Views.Typing;
 public class ThreadWord extends Thread {
     private Typing typing;
     private TypingController typingController;
+    private boolean isRunning = true;
 
     public ThreadWord(Typing typing, TypingController typingController) {
         this.typing = typing;
@@ -17,15 +18,12 @@ public class ThreadWord extends Thread {
             Thread.sleep(100);
         } catch (InterruptedException e) {
         }
-        while (true) {
+        while (isRunning) {
             typingController.checkWord(typing.getJTextField1().getText());
         }
     }
 
     public void interrupt() {
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-        }
+        isRunning = false;
     }
 }
