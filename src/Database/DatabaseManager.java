@@ -53,6 +53,18 @@ public class DatabaseManager {
         return false;
     }
 
+    public void insertScore(int id, int score) {
+        try {
+            String query = "INSERT INTO scores (id_user, score) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, score);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
     public int getId(String username) {
         try {
             String query = "SELECT id_user FROM users WHERE username = ?";

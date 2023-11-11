@@ -24,7 +24,7 @@ public class Typing extends javax.swing.JFrame {
         public Typing(int id) {
                 initComponents();
                 this.id = id;
-                this.typingController = new TypingController(this);
+                this.typingController = new TypingController(id,this);
                 this.typingController.getWord();
 
         }

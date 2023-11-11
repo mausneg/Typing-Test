@@ -10,6 +10,8 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Database.DatabaseManager;
+
 public class TypingController {
     private Typing typing;
     private ThreadCountdown threadCountdown;
@@ -22,9 +24,13 @@ public class TypingController {
     private int currentPanelIndex;
     private JPanel container;
     private int score;
+    private int id;
+    private DatabaseManager dbManager;
 
-    public TypingController(Typing typing) {
+    public TypingController(int id, Typing typing) {
         this.typing = typing;
+        this.dbManager = new DatabaseManager();
+        this.id = id;
         this.score = 0;
         container = typing.getJPanel2();
         this.currentPanelIndex = 0;
@@ -127,5 +133,6 @@ public class TypingController {
         typing.setJTextField1("");
         typing.setJLabel1("00:00");
         typing.setJLabel2(String.valueOf(score));
+        this.dbManager.insertScore(id, score);
     }
 }
