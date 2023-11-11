@@ -92,20 +92,21 @@ public class TypingController {
         currentPanel = (JPanel) container.getComponent(0);
         currentLabel = (JLabel) currentPanel.getComponent(labelIndex);
         int componentCount = currentPanel.getComponentCount();
-        if (text.equals(currentLabel.getText())) {
+        if (text.trim().equals(currentLabel.getText())) {
             currentLabel.setForeground(new java.awt.Color(34, 139, 34));
             labelIndex++;
             score++;
             typing.setJTextField1("");
+            if (labelIndex == componentCount) {
+                container.remove(0);
+                container.add(panels.get(0));
+                panels.remove(0);
+                labelIndex = 0;
+                container.revalidate();
+                container.repaint();
+            }
         } else {
             currentLabel.setForeground(new java.awt.Color(255, 0, 0));
-        }
-        if (labelIndex == componentCount) {
-            currentLabel.setForeground(new java.awt.Color(34, 139, 34));
-            container.remove(0);
-            container.add(panels.get(0));
-            panels.remove(0);
-            labelIndex = 0;
         }
     }
 
