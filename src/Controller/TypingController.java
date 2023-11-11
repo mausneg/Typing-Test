@@ -21,7 +21,7 @@ public class TypingController {
     private Random random;
     private JPanel currentPanel;
     private JLabel currentLabel;
-    private int currentPanelIndex;
+    private int labelIndex;
     private JPanel container;
     private int score;
     private int id;
@@ -33,7 +33,7 @@ public class TypingController {
         this.id = id;
         this.score = 0;
         container = typing.getJPanel2();
-        this.currentPanelIndex = 0;
+        this.labelIndex = 0;
         this.records = new ArrayList<>();
         this.random = new Random();
         this.typing.setFocusable(true);
@@ -90,26 +90,28 @@ public class TypingController {
         }
 
         currentPanel = (JPanel) container.getComponent(0);
-        currentLabel = (JLabel) currentPanel.getComponent(currentPanelIndex);
+        currentLabel = (JLabel) currentPanel.getComponent(labelIndex);
         int componentCount = currentPanel.getComponentCount();
         if (text.equals(currentLabel.getText())) {
             currentLabel.setForeground(new java.awt.Color(34, 139, 34));
-            currentPanelIndex++;
+            labelIndex++;
             score++;
-            if (currentPanelIndex == componentCount) {
-                container.remove(0);
-                container.add(panels.get(0));
-                panels.remove(0);
-                currentPanelIndex = 0;
-            }
             typing.setJTextField1("");
         } else {
             currentLabel.setForeground(new java.awt.Color(255, 0, 0));
         }
+        if (labelIndex == componentCount) {
+            currentLabel.setForeground(new java.awt.Color(34, 139, 34));
+            container.remove(0);
+            container.add(panels.get(0));
+            panels.remove(0);
+            labelIndex = 0;
+        }
     }
 
     public void restart() {
-        this.currentPanelIndex = 0;
+        this.labelIndex = 0;
+        typing.setJLabel2(String.valueOf(0));
         try {
             this.threadCountdown.interrupt();
             this.threadWord.interrupt();
