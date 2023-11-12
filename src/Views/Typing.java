@@ -24,7 +24,7 @@ public class Typing extends javax.swing.JFrame {
         public Typing(int id) {
                 initComponents();
                 this.id = id;
-                this.typingController = new TypingController(id,this);
+                this.typingController = new TypingController(id, this);
                 this.typingController.getWord();
 
         }
@@ -293,7 +293,7 @@ public class Typing extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-                // TODO add your handling code here:
+                new Leaderboard().setVisible(true);
         }// GEN-LAST:event_jButton2ActionPerformed
 
         private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
