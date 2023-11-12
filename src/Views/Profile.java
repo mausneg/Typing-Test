@@ -76,12 +76,15 @@ public class Profile extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(30, 41, 59));
         jLabel1.setText("Highscore : ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(30, 41, 59));
         jLabel4.setText("Jumlah tes : ");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(30, 41, 59));
         jLabel3.setText("Name : ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

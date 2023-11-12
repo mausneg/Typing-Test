@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseManager {
     private Statement statement;
@@ -123,6 +124,23 @@ public class DatabaseManager {
             System.out.println("Error: " + e);
         }
         return 0;
+    }
+
+    public ArrayList<String> getLeaderboard() {
+        ArrayList<String> listLead = new ArrayList<String>();
+        String temp = "";
+        try {
+            String query = "SELECT users.username, MAX(scores.score) AS high_score FROM users INNER JOIN scores ON users.id_user = scores.id_user GROUP BY users.username ORDER BY high_score DESC LIMIT 5";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                temp = resultSet.getString(1) + " " + resultSet.getString(2);
+                listLead.add(temp);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+        return listLead;
     }
 
 }

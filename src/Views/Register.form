@@ -60,8 +60,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" min="-2" pref="165" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" pref="143" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="53" max="32767" attributes="0"/>
                   </Group>
@@ -123,7 +123,7 @@
                 <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="jTextField1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Email"/>
+                <Property name="text" type="java.lang.String" value="Username"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
