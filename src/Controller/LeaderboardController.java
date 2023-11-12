@@ -3,9 +3,6 @@ package Controller;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import Database.DatabaseManager;
 import Views.Leaderboard;
 
