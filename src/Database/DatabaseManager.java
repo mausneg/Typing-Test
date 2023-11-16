@@ -1,7 +1,10 @@
 package Database;
 
+import java.security.MessageDigest;
 import java.sql.*;
 import java.util.ArrayList;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 public class DatabaseManager {
     private Statement statement;
@@ -18,6 +21,18 @@ public class DatabaseManager {
         }
     }
 
+    public String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte[] digest = md.digest();
+            String hashedPassword = Base64.getEncoder().encodeToString(digest);
+            return hashedPassword;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean register(String username, String password) {
         try {
             String checkQuery = "SELECT * FROM users WHERE username = ?";
@@ -27,10 +42,11 @@ public class DatabaseManager {
             if (resultSet.next()) {
                 return true;
             }
+            String hashedPassword = hashPassword(password);
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, hashedPassword);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -40,10 +56,11 @@ public class DatabaseManager {
 
     public boolean login(String username, String password) {
         try {
+            String hashedPassword = hashPassword(password);
             String query = "SELECT * FROM users WHERE username = ? AND password = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, hashedPassword);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return true;

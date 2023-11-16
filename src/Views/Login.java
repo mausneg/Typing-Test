@@ -180,7 +180,6 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
         String username = jTextField1.getText();
         String password = new String(jPasswordField1.getPassword());
-        System.out.println(password);
         if (loginController.login(username, password)) {
             JOptionPane.showMessageDialog(this, "Login berhasil!", "Success", JOptionPane.INFORMATION_MESSAGE);
             new Typing(loginController.getId(username)).setVisible(true);
