@@ -29,7 +29,7 @@ CREATE TABLE `scores` (
   PRIMARY KEY (`id_score`),
   KEY `score_user_id_user_fk` (`id_user`),
   CONSTRAINT `score_user_id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `scores` (
 
 LOCK TABLES `scores` WRITE;
 /*!40000 ALTER TABLE `scores` DISABLE KEYS */;
-INSERT INTO `scores` VALUES (1,90,2),(2,85,1),(3,43,2),(4,35,1),(5,43,3),(6,40,5),(7,80,4),(8,76,3),(9,69,5),(10,88,6),(11,38,2),(12,33,7);
+INSERT INTO `scores` VALUES (14,82,12),(15,90,13),(16,75,14),(17,88,15);
 /*!40000 ALTER TABLE `scores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +55,7 @@ CREATE TABLE `users` (
   `password` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `users_pk` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'aldar','coba'),(2,'novi','coba'),(3,'kinan','coba'),(4,'dhira','coba'),(5,'ridho','coba'),(6,'yasier','coba'),(7,'maulana','coba');
+INSERT INTO `users` VALUES (12,'kinan','bjgOd83zAC190bhP1kURzrZ1qm6F8Pqck5ka8/kMpfI='),(13,'yasier','bjgOd83zAC190bhP1kURzrZ1qm6F8Pqck5ka8/kMpfI='),(14,'dhira','bjgOd83zAC190bhP1kURzrZ1qm6F8Pqck5ka8/kMpfI='),(15,'novi','bjgOd83zAC190bhP1kURzrZ1qm6F8Pqck5ka8/kMpfI=');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -77,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-15 10:52:16
+-- Dump completed on 2023-11-16 18:10:59
