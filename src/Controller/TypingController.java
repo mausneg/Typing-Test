@@ -43,9 +43,9 @@ public class TypingController {
 
     }
 
-    public void readCSV(String csvFile) {
+    public void readCSV(String pathCSV) {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+            BufferedReader br = new BufferedReader(new FileReader(pathCSV));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");

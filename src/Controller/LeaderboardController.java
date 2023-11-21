@@ -20,7 +20,7 @@ public class LeaderboardController {
 
     public void display() {
         for (int i = 0; i < listLead.size(); i++) {
-            JLabel label = new JLabel("\t" + String.valueOf(i + 1) + ". " + listLead.get(i) + " KPM");
+            JLabel label = new JLabel("\t" + String.valueOf(i + 1) + ". " + listLead.get(i) + " WPM");
             label.setFont(new java.awt.Font("Segoe UI", 0, 18));
             label.setForeground(new java.awt.Color(71, 85, 105));
             leaderboard.setLead(label);

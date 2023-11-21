@@ -66,7 +66,7 @@ public class Typing extends javax.swing.JFrame {
         }
 
         public void setJLabel2(String text) {
-                this.jLabel2.setText("Score : " + text + " KPM");
+                this.jLabel2.setText("Score : " + text + " WPM");
         }
 
         /**
@@ -147,7 +147,7 @@ public class Typing extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Score : 0 KPM");
+        jLabel2.setText("Score : 0 WPM");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
