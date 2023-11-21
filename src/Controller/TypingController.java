@@ -112,6 +112,7 @@ public class TypingController {
 
     public void restart() {
         this.labelIndex = 0;
+        this.score = 0;
         typing.setJLabel2(String.valueOf(0));
         try {
             this.threadCountdown.interrupt();
